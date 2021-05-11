@@ -3,13 +3,13 @@ const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 
-// const peer = new Peer(undefined);
+const peer = new Peer(undefined);
 
-const peer = new Peer(undefined, {
-  path: "/peerjs",
-  host: "/",
-  port: "443",
-});
+// const peer = new Peer(undefined, {
+//   path: "/peerjs",
+//   host: "/",
+//   port: "443",
+// });
 
 let myVideoStream;
 navigator.mediaDevices
@@ -43,7 +43,6 @@ navigator.mediaDevices
     });
 
     socket.on("createMessage", (message) => {
-      console.log(message);
       $("ul").append(`<li class="message"><b>user</b><br/>${message}</li>`);
       scrollToBottom();
     });
