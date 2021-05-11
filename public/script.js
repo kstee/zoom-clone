@@ -7,7 +7,7 @@ myVideo.muted = true;
 
 const peer = new Peer(undefined, {
   path: "/myapp",
-  host: "rocky-island-01232.herokuapp.com",
+  host: "/",
   port: "443",
 });
 
