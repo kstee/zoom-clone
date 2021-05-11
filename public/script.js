@@ -3,13 +3,14 @@ const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 
-const peer = new Peer(undefined);
+// const peer = new Peer(undefined);
 
-// const peer = new Peer(undefined, {
-//   path: "/peerjs",
-//   host: "/",
-//   port: "443",
-// });
+const peer = new Peer(undefined, {
+  path: "/peerjs",
+  host: "/",
+  port: process.env.PORT,
+});
+console.log(process.env.PORT);
 
 let myVideoStream;
 navigator.mediaDevices
