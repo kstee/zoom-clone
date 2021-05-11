@@ -3,7 +3,14 @@ const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 
-const peer = new Peer();
+const peer = new Peer({
+  config: {
+    iceServers: [
+      { url: "stun:stun.l.google.com:19302" },
+      { url: "turn:homeo@turn.bistri.com:80", credential: "homeo" },
+    ],
+  } /* Sample servers, please use appropriate ones */,
+});
 
 // const peer = new Peer(undefined, {
 //   path: "/peerjs",
