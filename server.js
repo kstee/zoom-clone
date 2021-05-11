@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
   debug: true,
+  path: "/myapp",
 });
 
 app.set("view engine", "ejs");
@@ -32,4 +33,3 @@ io.on("connection", (socket) => {
 });
 
 server.listen(process.env.PORT || 3030);
-// server.listen(3030);
