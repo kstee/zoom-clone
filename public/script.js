@@ -1,9 +1,10 @@
-const socket = io("/");
+const socket = io();
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 
-const peer = new Peer(undefined);
+var config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }] };
+const peer = new Peer(undefined, config);
 
 // const peer = new Peer(undefined, {
 //   path: "/peerjs",
@@ -12,6 +13,11 @@ const peer = new Peer(undefined);
 // });
 
 let myVideoStream;
+const peers = {};
+// var getUserMedia =
+//   navigator.mediaDevices.getUserMedia ||
+//   navigator.webkitGetUserMedia ||
+//   navigator.mozGetUserMedia;
 navigator.mediaDevices
   .getUserMedia({
     video: true,
@@ -31,6 +37,10 @@ navigator.mediaDevices
 
     socket.on("user-connected", (userId) => {
       connectToNewUser(userId, stream);
+    });
+
+    socket.on("user-disconnected", (userId) => {
+      if (peers[userId]) peers[userId].close();
     });
 
     let text = $("input");
@@ -58,6 +68,11 @@ const connectToNewUser = (userId, stream) => {
   call.on("stream", (userVideoStream) => {
     addVideoStream(video, userVideoStream);
   });
+  call.on("close", () => {
+    video.remove();
+  });
+
+  peers[userId] = call;
 };
 
 const addVideoStream = (video, stream) => {

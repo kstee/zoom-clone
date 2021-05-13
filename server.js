@@ -1,7 +1,18 @@
 const express = require("express");
 const app = express();
-const server = require("http").Server(app);
-const io = require("socket.io")(server);
+const server = require("http").createServer(app);
+const cors = require("cors");
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+app.use(cors());
+
+const PORT = process.env.PORT || 3030;
+
 const { v4: uuidv4 } = require("uuid");
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
@@ -25,10 +36,15 @@ io.on("connection", (socket) => {
   socket.on("join-room", (roomId, userId) => {
     socket.join(roomId);
     socket.to(roomId).emit("user-connected", userId);
+
+    socket.on("disconnect", () => {
+      socket.to(roomId).emit("user-disconnected", userId);
+    });
+
     socket.on("message", (message) => {
       io.to(roomId).emit("createMessage", message);
     });
   });
 });
 
-server.listen(process.env.PORT || 3030);
+server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
