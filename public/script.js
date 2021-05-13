@@ -3,8 +3,9 @@ const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
 
-var config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }] };
-const peer = new Peer(undefined, config);
+// var config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }] };
+// const peer = new Peer(undefined, config);
+const peer = new Peer(undefined);
 
 // const peer = new Peer(undefined, {
 //   path: "/peerjs",
