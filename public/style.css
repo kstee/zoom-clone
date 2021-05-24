@@ -5,6 +5,7 @@ body {
 
 #video-grid {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 

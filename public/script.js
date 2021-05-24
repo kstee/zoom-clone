@@ -5,13 +5,13 @@ myVideo.muted = true;
 
 // var config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }] };
 // const peer = new Peer(undefined, config);
-const peer = new Peer(undefined);
+// const peer = new Peer(undefined);
 
-// const peer = new Peer(undefined, {
-//   path: "/peerjs",
-//   host: "/",
-//   port: "443",
-// });
+const peer = new Peer(undefined, {
+  path: "/peerjs",
+  host: "/",
+  port: "443",
+});
 
 let myVideoStream;
 const peers = {};
